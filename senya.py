@@ -1,9 +1,10 @@
 from word_parser import WordParserUtil
 from frame import progress
-raw_data = open('senya.txt', 'r').read().splitlines()
-output = open('senya_result.txt', 'w')
-output.write(raw_data[0] + '\n')
-num = int(raw_data[0])
+input_file = open('..\website-definition\storage\output\\1481892128922_best\content.data', 'r')
+raw_data = input_file.read().splitlines()
+output = open('..\website-definition\storage\output\\1481892128922_best\content_removed_stopwords.data', 'w')
+num = sum(1 for _ in input_file)
+output.write(str(num) + '\n')
 count = 0
 for line in raw_data[1:]:
     if line == '':
