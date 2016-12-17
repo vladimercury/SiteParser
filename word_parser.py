@@ -1,3 +1,4 @@
+# coding=utf-8
 class WordParserUtil:
     _lang_symbols = {
         'russian': 'а-яё',
