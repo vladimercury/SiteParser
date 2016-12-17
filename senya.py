@@ -11,7 +11,7 @@ for line in raw_data[1:]:
         continue
     line_data = line.split()
     site = line_data[0]
-    words = WordParserUtil.get_stemmed_words_without_stopwords(' '.join(line_data[1:]), lang='russian')
+    words = WordParserUtil.get_stemmed_words_without_stopwords(' '.join(line_data[1:]))
     output.write(site + ' ' + ' '.join(words) + '\n')
     count += 1
     if count % 7 == 1 or count == num:
