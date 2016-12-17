@@ -1,27 +1,31 @@
 class WordParserUtil:
-    _lang_symbols = {
-        'russian': 'а-яё',
-        'english': 'a-z'
-    }
-
     @staticmethod
-    def get_all_words(text, lang='english'):
+    def _is_rus(word):
         import re
-        regex = '[^' + WordParserUtil._lang_symbols[lang] + ']+'
+        if re.search('[а-яё]', word) is None:
+            return 0
+        return 1
+
+    @staticmethod
+    def get_all_words(text):
+        import re
         lower = text.lower()
-        filter_regex = re.split(regex, lower)
-        return [x for x in filter_regex if len(x) > 1]
+        filter_all = re.split('[^a-zа-яё]+', lower)
+        return [(x, WordParserUtil._is_rus(x)) for x in filter_all if len(x) > 1]
 
     @staticmethod
-    def get_stemmed_words(text, lang='english'):
+    def get_stemmed_words(text):
         import nltk
-        words = WordParserUtil.get_all_words(text, lang)
-        stemmer = nltk.stem.snowball.SnowballStemmer(lang)
-        return [stemmer.stem(word) for word in words]
+        words = WordParserUtil.get_all_words(text)
+        stemmers = [nltk.stem.snowball.SnowballStemmer('english'),
+                    nltk.stem.snowball.SnowballStemmer('russian')]
+        return [stemmers[word[1]].stem(word[0]) for word in words]
 
     @staticmethod
-    def get_stemmed_words_without_stopwords(text, lang='english'):
+    def get_stemmed_words_without_stopwords(text):
         import nltk
-        words = WordParserUtil.get_stemmed_words(text, lang)
-        stopwords = nltk.corpus.stopwords.words(lang)
+        words = WordParserUtil.get_stemmed_words(text)
+        stopwords = []
+        for i in ['russian', 'english']:
+            stopwords += nltk.corpus.stopwords.words(i)
         return [word for word in words if word not in stopwords]
