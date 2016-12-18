@@ -17,7 +17,7 @@ class WordParserUtil:
     @staticmethod
     def get_stemmed_words(text):
         import nltk
-        words = WordParserUtil.get_all_words(text)
+        words = WordParserUtil.get_all_words(unicode(text, errors='replace'))
         stemmers = [nltk.stem.snowball.SnowballStemmer('english'),
                     nltk.stem.snowball.SnowballStemmer('russian')]
         return [stemmers[word[1]].stem(word[0]) for word in words]

@@ -1,10 +1,13 @@
 from word_parser import WordParserUtil
 from frame import progress
-input_file = open('..\website-definition\storage\output\\1481892128922_best\content.data', 'r')
-raw_data = input_file.read().splitlines()
-output = open('..\website-definition\storage\output\\1481892128922_best\content_removed_stopwords.data', 'w')
-num = sum(1 for _ in input_file)
-output.write(str(num) + '\n')
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+raw_data = open('../website-definition/storage/output/1481986676099/simpletest.txt', 'r').read().splitlines()
+output = open('../website-definition/storage/output/1481986676099/content_removed_stopwords.data', 'w')
+output.write(raw_data[0] + '\n')
+num = int(raw_data[0])
 count = 0
 for line in raw_data[1:]:
     if line == '':
