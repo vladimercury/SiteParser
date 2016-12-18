@@ -1,6 +1,8 @@
 from word_parser import WordParserUtil
 from frame import progress
-raw_data = open('senya.txt', 'r').read().splitlines()
+import codecs
+encoding = 'utf8'
+raw_data = codecs.open('senya.txt', 'r', encoding=encoding).read().splitlines()
 output = open('senya_result.txt', 'w')
 output.write(raw_data[0] + '\n')
 num = int(raw_data[0])
